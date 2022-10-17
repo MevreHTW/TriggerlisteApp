@@ -15,3 +15,5 @@ public class GreetingController {
     }
 
 }
+
+//http://localhost:8080/greeting um auf das Frontend zugreifen zu können
