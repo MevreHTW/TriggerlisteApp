@@ -1,4 +1,4 @@
-package persistence;
+package htw.berlin.triggerliste.demo.persistence;
 
 import javax.persistence.*;
 
