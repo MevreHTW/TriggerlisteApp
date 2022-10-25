@@ -1,9 +1,7 @@
-package htw.berlin.triggerliste.demo;
+package htw.berlin.triggerliste.demo.web;
 
-import htw.berlin.triggerliste.demo.api.Trigger;
-import htw.berlin.triggerliste.demo.api.TriggerCreateRequest;
-import htw.berlin.triggerliste.demo.persistence.TriggerEntity;
-import htw.berlin.triggerliste.demo.persistence.TriggerRepository;
+import htw.berlin.triggerliste.demo.web.api.Trigger;
+import htw.berlin.triggerliste.demo.web.api.TriggerCreateRequest;
 import htw.berlin.triggerliste.demo.service.TriggerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 
@@ -30,10 +29,10 @@ public class TriggerRestController {
     }
 
     @PostMapping(path = "/api/v1/trigger")
-    public ResponseEntity<Void> createTrigger(@RequestBody TriggerCreateRequest request){
-       var trigger :Trigger = triggerService.create(request);
+    public ResponseEntity<Void> createTrigger(@RequestBody TriggerCreateRequest request) throws URISyntaxException {
+       var trigger = triggerService.create(request);
        URI uri = new URI("/api/v1/trigger/" + trigger.getId());
-       return ResponseEntity.created();
+       return ResponseEntity.created(uri).build();
     }
 }
 

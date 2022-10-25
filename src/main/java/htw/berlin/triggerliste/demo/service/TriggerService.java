@@ -1,7 +1,7 @@
 package htw.berlin.triggerliste.demo.service;
 
-import htw.berlin.triggerliste.demo.api.Trigger;
-import htw.berlin.triggerliste.demo.api.TriggerCreateRequest;
+import htw.berlin.triggerliste.demo.web.api.Trigger;
+import htw.berlin.triggerliste.demo.web.api.TriggerCreateRequest;
 import htw.berlin.triggerliste.demo.persistence.TriggerEntity;
 import htw.berlin.triggerliste.demo.persistence.TriggerRepository;
 import org.springframework.stereotype.Service;

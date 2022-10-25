@@ -1,9 +1,6 @@
-package htw.berlin.triggerliste.demo.api;
+package htw.berlin.triggerliste.demo.web.api;
 
-import java.util.Date;
-
-public class Trigger {
-    private long id;
+public class TriggerCreateRequest {
     private String datum;
     private String triggerBeschreibung;
     private int skala;
@@ -12,8 +9,7 @@ public class Trigger {
     private String auswirkungEmotion;
     private int skalaNachIntervention;
 
-    public Trigger(long id, String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
-        this.id = id;
+    public TriggerCreateRequest(String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
         this.datum = datum;
         this.triggerBeschreibung = triggerBeschreibung;
         this.skala = skala;
@@ -21,14 +17,6 @@ public class Trigger {
         this.ort = ort;
         this.auswirkungEmotion = auswirkungEmotion;
         this.skalaNachIntervention = skalaNachIntervention;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getDatum() {
