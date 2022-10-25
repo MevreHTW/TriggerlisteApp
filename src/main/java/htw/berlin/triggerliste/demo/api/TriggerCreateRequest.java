@@ -1,38 +1,15 @@
-package htw.berlin.triggerliste.demo.persistence;
+package htw.berlin.triggerliste.demo.api;
 
-import javax.persistence.*;
-
-@Entity(name = "trigger")
-public class TriggerEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
-
-    @Column(name = "datum")
+public class TriggerCreateRequest {
     private String datum;
-
-    @Column(name = "trigger_beschreibugn", nullable = false)
     private String triggerBeschreibung;
-
-    @Column(name = "skala")
     private int skala;
-
-    @Column(name = "emotion")
     private String emotion;
-
-    @Column(name = "ort")
     private String ort;
-
-    @Column(name = "auswirkung_emotion")
     private String auswirkungEmotion;
-
-    @Column(name = "skala_nach_intervention")
     private int skalaNachIntervention;
 
-    public TriggerEntity(String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
-      //  this.id = id;
+    public TriggerCreateRequest(String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
         this.datum = datum;
         this.triggerBeschreibung = triggerBeschreibung;
         this.skala = skala;
@@ -40,12 +17,6 @@ public class TriggerEntity {
         this.ort = ort;
         this.auswirkungEmotion = auswirkungEmotion;
         this.skalaNachIntervention = skalaNachIntervention;
-    }
-
-    protected TriggerEntity() {}
-
-    public long getId() {
-        return id;
     }
 
     public String getDatum() {
