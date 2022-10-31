@@ -45,5 +45,11 @@ public class TriggerRestController {
         return trigger != null? ResponseEntity.ok(trigger) : ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping(path = "/api/v1/trigger/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+        boolean successful = triggerService.deleteById(id);
+        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
 }
 

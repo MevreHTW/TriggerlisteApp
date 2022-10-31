@@ -63,6 +63,15 @@ public class TriggerService {
         return transformEntity(triggerEntity);
     }
 
+    public boolean deleteById (Long id) {
+        if (!triggerRepository.existsById(id)) {
+            return false;
+        }
+
+        triggerRepository.deleteById(id);
+        return true;
+    }
+
     private Trigger transformEntity(TriggerEntity triggerEntity){
         return new Trigger(
                 triggerEntity.getId(),
