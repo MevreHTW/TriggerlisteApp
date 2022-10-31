@@ -4,10 +4,7 @@ import htw.berlin.triggerliste.demo.web.api.Trigger;
 import htw.berlin.triggerliste.demo.web.api.TriggerCreateRequest;
 import htw.berlin.triggerliste.demo.service.TriggerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,6 +23,13 @@ public class TriggerRestController {
     @GetMapping(path = "/api/v1/trigger")
     public ResponseEntity<List<Trigger>> fetchTrigger() {
         return ResponseEntity.ok(triggerService.findAll());
+    }
+
+    @GetMapping(path = "/api/v1/trigger/{id}")
+    public ResponseEntity<Trigger> fetchTriggerById(@PathVariable Long id) {
+        var trigger = triggerService.findById(id);
+        return trigger != null? ResponseEntity.ok(trigger) : ResponseEntity.notFound().build();
+
     }
 
     @PostMapping(path = "/api/v1/trigger")

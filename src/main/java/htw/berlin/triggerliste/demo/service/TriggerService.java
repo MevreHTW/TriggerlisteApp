@@ -25,6 +25,12 @@ public class TriggerService {
                 .collect(Collectors.toList());
     }
 
+    public Trigger findById(Long id){
+        var triggerEntity = triggerRepository.findById(id);
+        return triggerEntity.map(this::transformEntity).orElse(null);
+    }
+
+
     public Trigger create(TriggerCreateRequest request) {
         var triggerEntity = new TriggerEntity(
                 request.getDatum(),
