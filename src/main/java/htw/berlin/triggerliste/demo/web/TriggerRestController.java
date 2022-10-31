@@ -1,7 +1,7 @@
 package htw.berlin.triggerliste.demo.web;
 
 import htw.berlin.triggerliste.demo.web.api.Trigger;
-import htw.berlin.triggerliste.demo.web.api.TriggerCreateRequest;
+import htw.berlin.triggerliste.demo.web.api.TriggerManipulationRequest;
 import htw.berlin.triggerliste.demo.service.TriggerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +33,17 @@ public class TriggerRestController {
     }
 
     @PostMapping(path = "/api/v1/trigger")
-    public ResponseEntity<Void> createTrigger(@RequestBody TriggerCreateRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createTrigger(@RequestBody TriggerManipulationRequest request) throws URISyntaxException {
        var trigger = triggerService.create(request);
        URI uri = new URI("/api/v1/trigger/" + trigger.getId());
        return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping(path = "/api/v1/trigger/{id}")
+    public ResponseEntity<Trigger> updateTrigger(@PathVariable Long id, @RequestBody TriggerManipulationRequest request) {
+    var trigger = triggerService.update(id, request);
+        return trigger != null? ResponseEntity.ok(trigger) : ResponseEntity.notFound().build();
+    }
+
 }
 

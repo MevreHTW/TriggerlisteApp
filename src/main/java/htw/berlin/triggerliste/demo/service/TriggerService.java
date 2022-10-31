@@ -1,7 +1,7 @@
 package htw.berlin.triggerliste.demo.service;
 
 import htw.berlin.triggerliste.demo.web.api.Trigger;
-import htw.berlin.triggerliste.demo.web.api.TriggerCreateRequest;
+import htw.berlin.triggerliste.demo.web.api.TriggerManipulationRequest;
 import htw.berlin.triggerliste.demo.persistence.TriggerEntity;
 import htw.berlin.triggerliste.demo.persistence.TriggerRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class TriggerService {
     }
 
 
-    public Trigger create(TriggerCreateRequest request) {
+    public Trigger create(TriggerManipulationRequest request) {
         var triggerEntity = new TriggerEntity(
                 request.getDatum(),
                 request.getTriggerBeschreibung(),
@@ -42,6 +42,25 @@ public class TriggerService {
                 request.getSkalaNachIntervention());
        triggerEntity = triggerRepository.save(triggerEntity);
        return transformEntity(triggerEntity);
+    }
+
+    public Trigger update(Long id, TriggerManipulationRequest request) {
+        var triggerEntityOptional = triggerRepository.findById(id);
+        if (triggerEntityOptional.isEmpty()) {
+            return null;
+        }
+
+        var triggerEntity = triggerEntityOptional.get();
+        triggerEntity.setDatum(request.getDatum());
+        triggerEntity.setTriggerBeschreibung(request.getTriggerBeschreibung());
+        triggerEntity.setSkala(request.getSkala());
+        triggerEntity.setEmotion(request.getEmotion());
+        triggerEntity.setOrt(request.getOrt());
+        triggerEntity.setAuswirkungEmotion(request.getAuswirkungEmotion());
+        triggerEntity.setSkalaNachIntervention(request.getSkalaNachIntervention());
+        triggerEntity = triggerRepository.save(triggerEntity);
+
+        return transformEntity(triggerEntity);
     }
 
     private Trigger transformEntity(TriggerEntity triggerEntity){

@@ -1,6 +1,6 @@
 package htw.berlin.triggerliste.demo.web.api;
 
-public class TriggerCreateRequest {
+public class TriggerManipulationRequest {
     private String datum;
     private String triggerBeschreibung;
     private int skala;
@@ -9,7 +9,7 @@ public class TriggerCreateRequest {
     private String auswirkungEmotion;
     private int skalaNachIntervention;
 
-    public TriggerCreateRequest(String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
+    public TriggerManipulationRequest(String datum, String triggerBeschreibung, int skala, String emotion, String ort, String auswirkungEmotion, int skalaNachIntervention) {
         this.datum = datum;
         this.triggerBeschreibung = triggerBeschreibung;
         this.skala = skala;
