@@ -19,6 +19,11 @@ public class TriggerManipulationRequest {
         this.skalaNachIntervention = skalaNachIntervention;
     }
 
+    public TriggerManipulationRequest(){
+
+    }
+
+
     public String getDatum() {
         return datum;
     }
