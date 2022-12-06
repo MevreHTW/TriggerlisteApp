@@ -34,9 +34,15 @@ public class TriggerRestController {
 
     @PostMapping(path = "/api/v1/trigger")
     public ResponseEntity<Void> createTrigger(@RequestBody TriggerManipulationRequest request) throws URISyntaxException {
-       var trigger = triggerService.create(request);
-       URI uri = new URI("/api/v1/trigger/" + trigger.getId());
-       return ResponseEntity.created(uri).build();
+        var valid = validate(request);
+        if (valid) {
+            var trigger = triggerService.create(request);
+            URI uri = new URI("/api/v1/trigger/" + trigger.getId());
+            return ResponseEntity.created(uri).build();
+        }
+        else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping(path = "/api/v1/trigger/{id}")
@@ -46,10 +52,22 @@ public class TriggerRestController {
     }
 
     @DeleteMapping(path = "/api/v1/trigger/{id}")
-    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTrigger(@PathVariable Long id) {
         boolean successful = triggerService.deleteById(id);
         return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
+    private boolean validate(TriggerManipulationRequest request) {
+        return  request.getDatum() != null
+                && !request.getDatum().isBlank()
+                && request.getTriggerBeschreibung() != null
+                && !request.getTriggerBeschreibung().isBlank()
+                && request.getEmotion() != null
+                && !request.getEmotion().isBlank()
+                && request.getOrt() != null
+                && !request.getOrt().isBlank()
+                && request.getAuswirkungEmotion() != null
+                && !request.getAuswirkungEmotion().isBlank();
+    }
 }
 
