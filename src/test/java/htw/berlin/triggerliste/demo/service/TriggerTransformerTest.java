@@ -18,7 +18,7 @@ public class TriggerTransformerTest implements WithAssertions {
     void should_transform_trigger_entity_to_trigger(){
         //given
         var triggerEntity = Mockito.mock(TriggerEntity.class);
-        doReturn(111).when(triggerEntity).getId();
+        doReturn(111L).when(triggerEntity).getId();
         doReturn("12.10.2022").when(triggerEntity).getDatum();
         doReturn("TestMs5").when(triggerEntity).getTriggerBeschreibung();
         doReturn(-10).when(triggerEntity).getSkala();
