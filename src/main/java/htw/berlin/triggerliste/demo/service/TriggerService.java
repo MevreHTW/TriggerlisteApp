@@ -13,21 +13,23 @@ import java.util.stream.Collectors;
 public class TriggerService {
 
     private final TriggerRepository triggerRepository;
+    private final TriggerTransformer triggerTransformer;
 
-    public TriggerService(TriggerRepository triggerrepository) {
+    public TriggerService(TriggerRepository triggerrepository, TriggerTransformer triggerTransformer) {
         this.triggerRepository = triggerrepository;
+        this.triggerTransformer = triggerTransformer;
     }
 
     public List<Trigger> findAll() {
         List<TriggerEntity> trigger = triggerRepository.findAll();
         return trigger.stream()
-                .map(this::transformEntity)
+                .map(triggerTransformer::transformEntity)
                 .collect(Collectors.toList());
     }
 
     public Trigger findById(Long id){
         var triggerEntity = triggerRepository.findById(id);
-        return triggerEntity.map(this::transformEntity).orElse(null);
+        return triggerEntity.map(triggerTransformer::transformEntity).orElse(null);
     }
 
 
@@ -41,7 +43,7 @@ public class TriggerService {
                 request.getAuswirkungEmotion(),
                 request.getSkalaNachIntervention());
        triggerEntity = triggerRepository.save(triggerEntity);
-       return transformEntity(triggerEntity);
+       return triggerTransformer.transformEntity(triggerEntity);
     }
 
     public Trigger update(Long id, TriggerManipulationRequest request) {
@@ -60,7 +62,7 @@ public class TriggerService {
         triggerEntity.setSkalaNachIntervention(request.getSkalaNachIntervention());
         triggerEntity = triggerRepository.save(triggerEntity);
 
-        return transformEntity(triggerEntity);
+        return triggerTransformer.transformEntity(triggerEntity);
     }
 
     public boolean deleteById (Long id) {
@@ -72,16 +74,16 @@ public class TriggerService {
         return true;
     }
 
-    private Trigger transformEntity(TriggerEntity triggerEntity){
-        return new Trigger(
-                triggerEntity.getId(),
-                triggerEntity.getDatum(),
-                triggerEntity.getTriggerBeschreibung(),
-                triggerEntity.getSkala(),
-                triggerEntity.getEmotion(),
-                triggerEntity.getOrt(),
-                triggerEntity.getAuswirkungEmotion(),
-                triggerEntity.getSkalaNachIntervention()
-        );
-    }
+  //  public Trigger transformEntity(TriggerEntity triggerEntity){
+  //      return new Trigger(
+  //              triggerEntity.getId(),
+  //              triggerEntity.getDatum(),
+  //              triggerEntity.getTriggerBeschreibung(),
+ //               triggerEntity.getSkala(),
+ //               triggerEntity.getEmotion(),
+ //               triggerEntity.getOrt(),
+ //               triggerEntity.getAuswirkungEmotion(),
+ //               triggerEntity.getSkalaNachIntervention()
+//        );
+ //   }
 }
