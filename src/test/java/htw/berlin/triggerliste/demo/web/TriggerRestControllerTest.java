@@ -61,7 +61,7 @@ public class TriggerRestControllerTest {
                 .andExpect(jsonPath("$[0].emotion").value("TestRestEmotion"))
                 .andExpect(jsonPath("$[0].ort").value("RestOrt"))
                 .andExpect(jsonPath("$[0].auswirkungEmotion").value("TestAE"))
-                .andExpect(jsonPath("$[0].skalaNachInvervention").value(-6))
+                .andExpect(jsonPath("$[0].skalaNachIntervention").value(-6))
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].datum").value("12.10.2022"))
                 .andExpect(jsonPath("$[1].triggerBeschreibung").value("TestTest"))
@@ -69,7 +69,7 @@ public class TriggerRestControllerTest {
                 .andExpect(jsonPath("$[1].emotion").value("TestRestEmotion"))
                 .andExpect(jsonPath("$[1].ort").value("RestOrt"))
                 .andExpect(jsonPath("$[1].auswirkungEmotion").value("TestAE"))
-                .andExpect(jsonPath("$[1].skalaNachInvervention").value(-6));
+                .andExpect(jsonPath("$[1].skalaNachIntervention").value(-6));
     }
 
 
@@ -77,7 +77,18 @@ public class TriggerRestControllerTest {
     @DisplayName("should return 201 http status and Location header when creating a trigger")
     void should_return_201_http_status_and_location_header_when_creating_a_trigger() throws Exception {
         // given
-        String triggerToCreateAsJson = "{\"12.10.2022\": \"TestTest\", \"-8\":\"TestRestEmotion\", \"RestOrt\":\"TestAE\", \"-6\"}";
+        String triggerToCreateAsJson = """
+                {
+                  "id": 123,
+                  "datum": "12.10.2022",
+                  "triggerBeschreibung": "TestTest",
+                  "skala": -8,
+                  "emotion": "TestRestEmotion",
+                  "ort": "RestOrt",
+                  "auswirkungEmotion": "TestAE",
+                  "skalaNachIntervention": -6
+                }
+                """;
         var trigger = new Trigger(123,"12.10.2022","TestTest",-8,
                 "TestRestEmotion","RestOrt","TestAE",
                 -6);
